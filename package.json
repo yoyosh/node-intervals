@@ -1,0 +1,25 @@
+{
+  "name": "node-intervals",
+  "version": "1.0.0",
+  "description": "Improved intervals for Node.js",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoyoshGitHub/node-intervals.git"
+  },
+  "keywords": [
+    "interval",
+    "intervals",
+    "timeout",
+    "delay"
+  ],
+  "author": "yoyosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoyoshGitHub/node-intervals/issues"
+  },
+  "homepage": "https://github.com/yoyoshGitHub/node-intervals#readme"
+}
