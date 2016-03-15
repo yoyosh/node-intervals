@@ -5,7 +5,7 @@ var EventEmitter = require("events");
 function Interval (ticks, tickOnStart, stopOnErrors, start, repeatTimes) { 
 	if (!(this instanceof arguments.callee)) { 
 		var args = Array.prototype.slice.call(arguments, 0);
-		args.unshift(arguments.callee);
+		args.unshift(null);
 		return new (arguments.callee.bind.apply(arguments.callee, args))();
 	}
 	
@@ -23,6 +23,8 @@ function Interval (ticks, tickOnStart, stopOnErrors, start, repeatTimes) {
 		this.start();
 }
 
+util.inherits(Interval, EventEmitter);
+
 
 
 Interval.prototype.init = function () { 
@@ -33,7 +35,7 @@ Interval.prototype.init = function () {
 		if(this.stopOnErrors) 
 			this.stop();
 	}.bind(this));
-}
+};
 
 Interval.prototype.start = function () { 
 	if(this.running) 
@@ -55,7 +57,7 @@ Interval.prototype.stop = function () {
 	
 	this.running = false;
 	
-	this.stopIntrval();
+	this.stopInterval();
 	
 	this.emit("stop");
 };
@@ -71,7 +73,11 @@ Interval.prototype.createInterval = function () {
 		
 		this.times++;
 		
-		this.emit("tick");
+		try { 
+			this.emit("tick");
+		} catch (e) { 
+			this.emit("error", e);
+		}
 		
 		if(this.times >= this.timesToStop) 
 			this.stop();
@@ -95,7 +101,5 @@ Interval.prototype.setNextTime = function (nextTime) {
 Interval.prototype.resetTicks = function () { 
 	this.setTicks();
 };
-
-util.inherits(Interval, EventEmitter);
 
 module.exports = Interval;
