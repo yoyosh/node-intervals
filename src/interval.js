@@ -3,6 +3,13 @@ var EventEmitter = require("events");
 
 
 function Interval (ticks, tickOnStart, stopOnErrors, start, repeatTimes) { 
+	if (!(this instanceof arguments.callee)) { 
+		var args = Array.prototype.slice.call(arguments, 0);
+		args.unshift(arguments.callee);
+		return new (arguments.callee.bind.apply(arguments.callee, args))();
+	}
+	
+	
 	EventEmitter.call(this);
 	
 	this.ticks = ticks || 0;
